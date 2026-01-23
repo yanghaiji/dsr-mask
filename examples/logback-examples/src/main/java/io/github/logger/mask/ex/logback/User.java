@@ -3,6 +3,8 @@ package io.github.logger.mask.ex.logback;
 import io.github.logger.mask.core.annotation.Mask;
 import io.github.logger.mask.core.constants.MaskConstants;
 
+import java.util.List;
+
 public class User {
 
     private String name;
@@ -16,6 +18,8 @@ public class User {
     @Mask(type = MaskConstants.EMAIL)
     private String email;
 
+    private List<User> list;
+
     public User(String name, String phone, String secret, String email) {
         this.name = name;
         this.phone = phone;
@@ -23,12 +27,14 @@ public class User {
         this.email = email;
     }
 
+
+    public void setList(List<User> list) {
+        this.list = list;
+    }
+
+
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", secret='" + secret + '\'' +
-                '}';
+        return "User@" + System.identityHashCode(this);
     }
 }

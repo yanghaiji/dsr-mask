@@ -13,13 +13,12 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.5.22</version>
+            <version>${logback-classic.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>io.github.logger.mark</groupId>
+            <groupId>io.github.logger.mask</groupId>
             <artifactId>logger-mask-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

@@ -6,17 +6,26 @@ import io.github.logger.mask.core.strategy.MaskStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class LogbackDemo {
 
-    private static final Logger log =
-            LoggerFactory.getLogger(LogbackDemo.class);
+    private static final Logger log = LoggerFactory.getLogger(LogbackDemo.class);
 
     /**
      * 自定义 掩码的实现方式
+     * <br>
      * step 1: 实现 {@link io.github.logger.mask.core.strategy.MaskStrategy} 接口 。（必选项）
+     * <br>
      * step 2: 继承或者实现 {@link MaskConstants} 实现自定义掩码的类型，用{@link io.github.logger.mask.core.annotation.Mask}
      * 注解，同时作用与  {@link MaskStrategy#type()}的返回值
+     * <br>
      * step 3: 将实现好的掩码实现方式 注册到 {@link io.github.logger.mask.core.DefaultMaskStrategyRegistry#register(MaskStrategy)}
+     *
+     * <br>
+     * 注意：
+     * 当你是多级嵌套时 就不要重写对象的toString方法 会导致 StackOverflowError，如果非要重写 可以简写 {@link User#toString()}
      *
      */
     public static void main(String[] args) {
@@ -24,6 +33,27 @@ public class LogbackDemo {
         DefaultMaskStrategyRegistry.register(new SecretMaskStrategy());
 
         User user = new User("张三", "13812345678", "abcdef", "1213133131@github.com");
-        log.info("用户信息: {}", user);
+        User user2 = new User("张三", "13812345678", "abcdef", "1213133131@github.com");
+
+        List<User> userList = List.of(user, user2);
+
+        for (int i = 0; i < 1000; i++) {
+            log.info("用户信息: {}", user);
+            log.info("用户信息集合: {}", userList);
+        }
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("key1", "value1");
+        map.put("key2", user2);
+        map.put("key3", userList);
+
+        log.info("用户信息 map: {}", userList);
+
+
+        user.setList(userList);
+
+        log.info("用户信息 嵌套: {}", userList);
+
+
     }
 }
