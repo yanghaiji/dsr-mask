@@ -2,12 +2,13 @@ package io.github.logger.mask.logback;
 
 import ch.qos.logback.classic.PatternLayout;
 import ch.qos.logback.classic.spi.ILoggingEvent;
-import io.github.logger.mask.core.MaskedToStringSerializer;
+import io.github.logger.mask.core.ObjectMasker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * 安全的脱敏PatternLayout，不修改原始日志事件
+ * @author haiji
  */
 public class SafeMaskingPatternLayout extends PatternLayout {
 
@@ -42,7 +43,7 @@ public class SafeMaskingPatternLayout extends PatternLayout {
 
         for (int i = 0; i < maskedArgs.length; i++) {
             if (maskedArgs[i] != null) {
-                maskedArgs[i] = MaskedToStringSerializer.wrap(maskedArgs[i]);
+                maskedArgs[i] = ObjectMasker.maskObject(maskedArgs[i]);
             }
         }
         return maskedArgs;

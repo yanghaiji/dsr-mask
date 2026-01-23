@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>io.github.logger.mark</groupId>
+  <groupId>io.github.logger.mask</groupId>
   <artifactId>logger-mask</artifactId>
   <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -23,18 +23,18 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.github.logger.mark</groupId>
-                <artifactId>logger-mark-core</artifactId>
+                <groupId>io.github.logger.mask</groupId>
+                <artifactId>logger-mask-core</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>io.github.logger.mark</groupId>
-                <artifactId>logger-mark-logback</artifactId>
+                <groupId>io.github.logger.mask</groupId>
+                <artifactId>logger-mask-logback</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>io.github.logger.mark</groupId>
-                <artifactId>logger-mark-log4j</artifactId>
+                <groupId>io.github.logger.mask</groupId>
+                <artifactId>logger-mask-log4j</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
         </dependencies>

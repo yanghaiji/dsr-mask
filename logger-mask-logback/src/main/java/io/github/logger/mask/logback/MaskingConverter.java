@@ -2,7 +2,7 @@ package io.github.logger.mask.logback;
 
 import ch.qos.logback.classic.pattern.ClassicConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
-import io.github.logger.mask.core.MaskedToStringSerializer;
+import io.github.logger.mask.core.ObjectMasker;
 
 public class MaskingConverter extends ClassicConverter {
 
@@ -20,7 +20,7 @@ public class MaskingConverter extends ClassicConverter {
             // 创建脱敏后的参数
             Object[] maskedArgs = new Object[args.length];
             for (int i = 0; i < args.length; i++) {
-                maskedArgs[i] = MaskedToStringSerializer.wrap(args[i]);
+                maskedArgs[i] = ObjectMasker.maskObject(args[i]);
             }
 
             // 安全地格式化消息
