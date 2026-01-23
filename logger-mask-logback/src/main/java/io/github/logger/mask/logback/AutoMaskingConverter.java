@@ -2,7 +2,7 @@ package io.github.logger.mask.logback;
 
 import ch.qos.logback.classic.pattern.ClassicConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
-import io.github.logger.mask.core.MaskedToStringSerializer;
+import io.github.logger.mask.core.ObjectMasker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,14 +20,14 @@ public class AutoMaskingConverter extends ClassicConverter {
         try {
             // 获取已经格式化的完整消息
             String formattedMessage = event.getFormattedMessage();
-            
+
             // 如果消息为空，直接返回
             if (formattedMessage == null || formattedMessage.isEmpty()) {
                 return formattedMessage;
             }
-            
+
             // 对整个消息进行脱敏处理（处理可能遗漏的敏感信息）
-            return MaskedToStringSerializer.wrap(formattedMessage).toString();
+            return ObjectMasker.maskObject(formattedMessage).toString();
         } catch (Exception e) {
             // 出错时返回原始消息，避免日志丢失
             log.error(e.getMessage(), e);

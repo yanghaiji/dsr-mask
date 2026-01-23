@@ -1,5 +1,8 @@
-package io.github.logger.mask.core;
+package io.github.logger.mask.core.strategy;
 
+/**
+ * @author haiji
+ */
 public interface MaskStrategy {
 
     /**

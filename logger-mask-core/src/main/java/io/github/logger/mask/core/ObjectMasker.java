@@ -2,15 +2,23 @@ package io.github.logger.mask.core;
 
 
 import io.github.logger.mask.core.annotation.Mask;
+import io.github.logger.mask.core.strategy.MaskStrategy;
 
 import java.lang.reflect.Field;
 
+/**
+ * @author haiji
+ */
 public class ObjectMasker {
 
 
     public static String maskObject(Object obj) {
         if (obj == null) {
             return "null";
+        }
+        // 跳过 String 和其他 JDK 内部类
+        if (obj instanceof String) {
+            return "\"" + obj + "\"";
         }
 
         Class<?> clazz = obj.getClass();
