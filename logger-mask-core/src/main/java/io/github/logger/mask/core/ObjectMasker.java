@@ -1,62 +1,290 @@
 package io.github.logger.mask.core;
 
-
 import io.github.logger.mask.core.annotation.Mask;
 import io.github.logger.mask.core.strategy.MaskStrategy;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.*;
 
 /**
  * @author haiji
  */
 public class ObjectMasker {
 
+    // 用于检测循环引用，避免无限递归
+    private static final ThreadLocal<Map<Object, String>> VISITEDOBJECTS = ThreadLocal.withInitial(HashMap::new);
 
     public static String maskObject(Object obj) {
+        try {
+            return maskObjectInternal(obj);
+        } finally {
+            VISITEDOBJECTS.get().clear();
+        }
+    }
+
+    private static String maskObjectInternal(Object obj) {
         if (obj == null) {
             return "null";
         }
-        // 跳过 String 和其他 JDK 内部类
-        if (obj instanceof String) {
-            return "\"" + obj + "\"";
+
+        // 检查是否已经访问过此对象（循环引用检测）
+        Map<Object, String> visited = VISITEDOBJECTS.get();
+        if (visited.containsKey(obj)) {
+            return "[circular reference: " + visited.get(obj) + "]";
+        }
+
+        // 记录当前对象
+        String objectId = getObjectIdentifier(obj);
+        visited.put(obj, objectId);
+
+        try {
+            // 处理基本类型和字符串
+            if (isPrimitiveOrWrapper(obj) || obj instanceof String) {
+                return formatPrimitive(obj);
+            }
+
+            // 处理集合类型
+            if (obj instanceof Collection) {
+                return maskCollection((Collection<?>) obj);
+            }
+
+            // 处理Map类型
+            if (obj instanceof Map) {
+                return maskMap((Map<?, ?>) obj);
+            }
+
+            // 处理数组
+            if (obj.getClass().isArray()) {
+                return maskArray(obj);
+            }
+
+            // 处理普通对象
+            return maskRegularObject(obj);
+
+        } finally {
+            visited.remove(obj);
+        }
+    }
+
+    private static boolean isPrimitiveOrWrapper(Object obj) {
+        if (obj == null) {
+            return false;
         }
 
         Class<?> clazz = obj.getClass();
-        StringBuilder sb = new StringBuilder(clazz.getSimpleName()).append("{");
+        return clazz.isPrimitive() ||
+                clazz == Boolean.class ||
+                clazz == Character.class ||
+                clazz == Byte.class ||
+                clazz == Short.class ||
+                clazz == Integer.class ||
+                clazz == Long.class ||
+                clazz == Float.class ||
+                clazz == Double.class;
+    }
+
+    private static String formatPrimitive(Object obj) {
+        if (obj instanceof String) {
+            return "\"" + escapeString((String) obj) + "\"";
+        }
+        return String.valueOf(obj);
+    }
+
+    private static String escapeString(String str) {
+        if (str == null) {
+            return "null";
+        }
+        return str.replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r")
+                .replace("\t", "\\t");
+    }
+
+    private static String getObjectIdentifier(Object obj) {
+        if (obj == null) {
+            return "null";
+        }
+        return obj.getClass().getSimpleName() + "@" + System.identityHashCode(obj);
+    }
+
+    private static String maskCollection(Collection<?> collection) {
+        if (collection.isEmpty()) {
+            return collection.getClass().getSimpleName() + "[]";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        String className = getSimpleClassName(collection.getClass());
+        sb.append(className).append("[");
+
+        boolean first = true;
+        for (Object item : collection) {
+            if (!first) {
+                sb.append(", ");
+            }
+            sb.append(maskObjectInternal(item));
+            first = false;
+        }
+
+        sb.append("]");
+        return sb.toString();
+    }
+
+    private static String maskMap(Map<?, ?> map) {
+        if (map.isEmpty()) {
+            return map.getClass().getSimpleName() + "{}";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        String className = getSimpleClassName(map.getClass());
+        sb.append(className).append("{");
+
+        boolean first = true;
+        for (Map.Entry<?, ?> entry : map.entrySet()) {
+            if (!first) {
+                sb.append(", ");
+            }
+
+            Object key = entry.getKey();
+            Object value = entry.getValue();
+
+            sb.append(maskObjectInternal(key))
+                    .append("=")
+                    .append(maskObjectInternal(value));
+
+            first = false;
+        }
+
+        sb.append("}");
+        return sb.toString();
+    }
+
+    private static String maskArray(Object array) {
+        Class<?> componentType = array.getClass().getComponentType();
+        String typeName = componentType.isPrimitive() ?
+                componentType.getName() :
+                componentType.getSimpleName();
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(typeName).append("[]{");
+
+        int length = java.lang.reflect.Array.getLength(array);
+        for (int i = 0; i < length; i++) {
+            if (i > 0) {
+                sb.append(", ");
+            }
+            Object item = java.lang.reflect.Array.get(array, i);
+            sb.append(maskObjectInternal(item));
+        }
+
+        sb.append("}");
+        return sb.toString();
+    }
+
+    private static String getSimpleClassName(Class<?> clazz) {
+        String simpleName = clazz.getSimpleName();
+        if (simpleName.isEmpty()) {
+            return clazz.getName();
+        }
+
+        // 简化常见集合类名
+        if (clazz == ArrayList.class) {
+            return "List";
+        }
+        if (clazz == LinkedList.class) {
+            return "List";
+        }
+        if (clazz == HashSet.class) {
+            return "Set";
+        }
+        if (clazz == TreeSet.class) {
+            return "SortedSet";
+        }
+        if (clazz == HashMap.class) {
+            return "Map";
+        }
+        if (clazz == TreeMap.class) {
+            return "SortedMap";
+        }
+        if (clazz == LinkedHashMap.class) {
+            return "LinkedMap";
+        }
+
+        return simpleName;
+    }
+
+    private static String maskRegularObject(Object obj) {
+        Class<?> clazz = obj.getClass();
+        String className = clazz.getSimpleName();
+
+        // 跳过JDK内部类
+        if (isJdkInternalClass(clazz)) {
+            return className + "@" + System.identityHashCode(obj);
+        }
+
+        StringBuilder sb = new StringBuilder(className).append("{");
 
         Field[] fields = clazz.getDeclaredFields();
+        boolean hasFields = false;
+
         for (Field field : fields) {
+            // 跳过静态字段、transient字段和合成字段
+            if (Modifier.isStatic(field.getModifiers()) ||
+                    Modifier.isTransient(field.getModifiers()) ||
+                    field.isSynthetic()) {
+                continue;
+            }
 
             field.setAccessible(true);
             try {
                 Object value = field.get(obj);
 
-                sb.append(field.getName()).append("=");
-
-                Mask mask = field.getAnnotation(Mask.class);
-                if (mask != null && value instanceof String) {
-                    MaskStrategy strategy =
-                            DefaultMaskStrategyRegistry.get(mask.type());
-
-                    if (strategy != null) {
-                        sb.append(strategy.mask((String) value, mask.args()));
-                    } else {
-                        sb.append(value);
-                    }
-                } else {
-                    sb.append(value);
+                if (hasFields) {
+                    sb.append(", ");
                 }
 
-                sb.append(", ");
-            } catch (Exception ignored) {
-                ignored.printStackTrace();
+                sb.append(field.getName()).append("=");
+
+                // 检查字段是否有@Mask注解
+                Mask mask = field.getAnnotation(Mask.class);
+                if (mask != null && value instanceof String) {
+                    try {
+                        MaskStrategy strategy = DefaultMaskStrategyRegistry.get(mask.type());
+                        if (strategy != null) {
+                            String maskedValue = strategy.mask((String) value, mask.args());
+                            sb.append("\"").append(escapeString(maskedValue)).append("\"");
+                        } else {
+                            sb.append(maskObjectInternal(value));
+                        }
+                    } catch (Exception e) {
+                        sb.append("[MASK_ERROR: ").append(e.getMessage()).append("]");
+                    }
+                } else {
+                    sb.append(maskObjectInternal(value));
+                }
+
+                hasFields = true;
+            } catch (IllegalAccessException e) {
+                sb.append(field.getName()).append("=[ACCESS_ERROR]");
+            } catch (Exception e) {
+                sb.append(field.getName()).append("=[ERROR: ").append(e.getMessage()).append("]");
             }
         }
 
-        if (sb.lastIndexOf(", ") == sb.length() - 2) {
-            sb.delete(sb.length() - 2, sb.length());
-        }
         sb.append("}");
         return sb.toString();
     }
+
+    private static boolean isJdkInternalClass(Class<?> clazz) {
+        String packageName = clazz.getPackage() != null ? clazz.getPackage().getName() : "";
+        return packageName.startsWith("java.") ||
+                packageName.startsWith("javax.") ||
+                packageName.startsWith("jdk.") ||
+                packageName.startsWith("sun.") ||
+                clazz.getName().startsWith("com.sun.") ||
+                clazz.getName().contains("$");
+    }
+
+
 }
