@@ -20,6 +20,7 @@
         <logger.mask.version>1.0.0</logger.mask.version>
         <log4j-core.version>2.25.3</log4j-core.version>
         <logback-classic.version>1.5.22</logback-classic.version>
+        <commons-lang3.version>3.20.0</commons-lang3.version>
     </properties>
 
 

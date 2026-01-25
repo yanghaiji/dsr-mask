@@ -1,8 +1,7 @@
 package io.github.logger.mask.core.strategy;
 
 import io.github.logger.mask.core.constants.MaskConstants;
-
-import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author haiji
@@ -10,17 +9,22 @@ import java.util.regex.Pattern;
 public class IdcarMaskStrategy implements MaskStrategy {
 
 
-    private static final Pattern PATTERN =
-            Pattern.compile("(\\b\\d{6})\\d{8}(\\w{4}\\b)");
-
     @Override
     public String type() {
         return MaskConstants.ID_CAR;
     }
 
     @Override
-    public String mask(String origin, String[] args) {
-        return PATTERN.matcher(origin).replaceAll("$1********$2");
+    public String mask(String idNumber, String[] args) {
+        if (StringUtils.isNotBlank(idNumber)) {
+            if (idNumber.length() == MaskConstants.ID_CAR_LENGTH_15){
+                idNumber = idNumber.replaceAll("(\\w{6})\\w*(\\w{3})", "$1******$2");
+            }
+            if (idNumber.length() == MaskConstants.ID_CAR_LENGTH_18){
+                idNumber = idNumber.replaceAll("(\\w{6})\\w*(\\w{3})", "$1*********$2");
+            }
+        }
+        return idNumber;
     }
 
 

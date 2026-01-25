@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 脱敏注解
  * @author haiji
  */
 @Retention(RetentionPolicy.RUNTIME)

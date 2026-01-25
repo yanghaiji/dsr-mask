@@ -3,17 +3,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.github.logger.mask</groupId>
-        <artifactId>logger-mask</artifactId>
+        <artifactId>examples</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>logger-mask-core</artifactId>
-    <name>logger-mask-core</name>
+    <artifactId>log4j-examples</artifactId>
+    <name>log4j-examples</name>
+    <url>http://maven.apache.org</url>
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
+            <groupId>io.github.logger.mask</groupId>
+            <artifactId>logger-mask-log4j</artifactId>
         </dependency>
     </dependencies>
 </project>
