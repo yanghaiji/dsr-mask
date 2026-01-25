@@ -8,28 +8,36 @@ import java.lang.reflect.Modifier;
 import java.util.*;
 
 /**
+ * 对象脱敏工具类
  * @author haiji
  */
 public class ObjectMasker {
 
-    // 用于检测循环引用，避免无限递归
-    private static final ThreadLocal<Map<Object, String>> VISITEDOBJECTS = ThreadLocal.withInitial(HashMap::new);
+    /**
+     * 线程本地变量，用于记录已经访问过的对象，防止循环引用
+     */
+    private static final ThreadLocal<Map<Object, String>> VISITED_OBJECTS = ThreadLocal.withInitial(HashMap::new);
 
     public static String maskObject(Object obj) {
         try {
             return maskObjectInternal(obj);
         } finally {
-            VISITEDOBJECTS.get().clear();
+            VISITED_OBJECTS.get().clear();
         }
     }
 
+    /**
+     * 内部方法，用于递归处理对象
+     * @param obj 要处理的对象
+     * @return
+     */
     private static String maskObjectInternal(Object obj) {
         if (obj == null) {
             return "null";
         }
 
         // 检查是否已经访问过此对象（循环引用检测）
-        Map<Object, String> visited = VISITEDOBJECTS.get();
+        Map<Object, String> visited = VISITED_OBJECTS.get();
         if (visited.containsKey(obj)) {
             return "[circular reference: " + visited.get(obj) + "]";
         }
@@ -67,6 +75,11 @@ public class ObjectMasker {
         }
     }
 
+    /**
+     * 判断对象是否为基本类型或包装类
+     * @param obj
+     * @return
+     */
     private static boolean isPrimitiveOrWrapper(Object obj) {
         if (obj == null) {
             return false;

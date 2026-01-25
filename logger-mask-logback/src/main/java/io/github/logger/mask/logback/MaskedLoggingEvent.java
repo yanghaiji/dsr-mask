@@ -236,7 +236,9 @@ public class MaskedLoggingEvent implements ILoggingEvent {
     }
 
     private int countPlaceholders(String message) {
-        if (message == null) return 0;
+        if (message == null) {
+            return 0;
+        }
 
         int count = 0;
         int index = 0;

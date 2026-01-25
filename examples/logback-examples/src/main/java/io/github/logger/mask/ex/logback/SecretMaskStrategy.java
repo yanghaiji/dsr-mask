@@ -5,6 +5,9 @@ import io.github.logger.mask.core.strategy.MaskStrategy;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+/**
+ * @author haiji
+ */
 public class SecretMaskStrategy implements MaskStrategy {
     /**
      * 类型名，如 phone / idCard

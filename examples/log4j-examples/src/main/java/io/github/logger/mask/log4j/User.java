@@ -1,4 +1,5 @@
-package io.github.logger.mask.ex.logback;
+package io.github.logger.mask.log4j;
+
 
 import io.github.logger.mask.core.annotation.Mask;
 import io.github.logger.mask.core.constants.MaskConstants;
@@ -7,13 +8,11 @@ import java.util.List;
 
 public class User {
 
-    @Mask(type = CustomMaskConstants.NAME)
     private String name;
 
     @Mask(type = MaskConstants.PHONE)
     private String phone;
 
-    @Mask(type = CustomMaskConstants.SECRET)
     private String secret;
 
     @Mask(type = MaskConstants.EMAIL)
@@ -21,18 +20,12 @@ public class User {
 
     private List<User> list;
 
-    @Mask(type = MaskConstants.ADDRESS)
-    private String address;
-
-
-    public User(String name, String phone, String secret, String email, String address) {
+    public User(String name, String phone, String secret, String email) {
         this.name = name;
         this.phone = phone;
         this.secret = secret;
         this.email = email;
-        this.address = address;
     }
-
 
 
     public void setList(List<User> list) {
