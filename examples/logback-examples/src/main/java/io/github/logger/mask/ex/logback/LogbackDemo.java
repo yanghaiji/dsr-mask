@@ -32,8 +32,8 @@ public class LogbackDemo {
 
         DefaultMaskStrategyRegistry.register(new SecretMaskStrategy());
 
-        User user = new User("张三", "13812345678", "abcdef", "1213133131@github.com","北京市朝阳区CBD中国尊13层");
-        User user2 = new User("王二麻", "13812345678", "abcdef", "1213133131@github.com","北京市朝阳区CBD中国尊16层");
+        User user = new User("张三", "13812345678", "abcdef", "1213133131@github.com","北京市朝阳区CBD中国尊13层","110190199909090909");
+        User user2 = new User("王二麻", "13812345678", "abcdef", "1213133131@github.com","北京市朝阳区CBD中国尊16层","110190199909090908");
 
         List<User> userList = List.of(user, user2);
 
