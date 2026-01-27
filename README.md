@@ -1,4 +1,4 @@
-# Logger Mask
+# Data Security Runtime Mask
 
 Logger Mask 是一个用于保护敏感信息的 Java 日志脱敏工具。它能够自动识别并遮蔽日志中的敏感数据，如手机号、邮箱地址、身份证号、银行卡号等，从而确保日志输出符合数据安全和隐私保护的要求。
 
@@ -16,15 +16,15 @@ Logger Mask 是一个用于保护敏感信息的 Java 日志脱敏工具。它�
 ```java
 
       <dependency>
-            <groupId>io.github.logger.mask</groupId>
-            <artifactId>logger-mask-logback</artifactId>
+            <groupId>io.github.dsr</groupId>
+            <artifactId>dsr-mask-logback</artifactId>
       </dependency>
               
 ------------------------------------------------------------
       
       <dependency>
-            <groupId>io.github.logger.mask</groupId>
-            <artifactId>logger-mask-log4j</artifactId>
+            <groupId>io.github.dsr</groupId>
+            <artifactId>dsr-mask-log4j</artifactId>
       </dependency>
       
 
@@ -45,12 +45,12 @@ public class LogbackDemo {
     /**
      * 自定义 掩码的实现方式
      * <br>
-     * step 1: 实现 {@link io.github.logger.mask.core.strategy.MaskStrategy} 接口 。（必选项）
+     * step 1: 实现 {@link MaskStrategy} 接口 。（必选项）
      * <br>
-     * step 2: 继承或者实现 {@link MaskConstants} 实现自定义掩码的类型，用{@link io.github.logger.mask.core.annotation.Mask}
+     * step 2: 继承或者实现 {@link MaskConstants} 实现自定义掩码的类型，用{@link Mask}
      * 注解，同时作用与  {@link MaskStrategy#type()}的返回值
      * <br>
-     * step 3: 将实现好的掩码实现方式 注册到 {@link io.github.logger.mask.core.DefaultMaskStrategyRegistry#register(MaskStrategy)}
+     * step 3: 将实现好的掩码实现方式 注册到 {@link DefaultMaskStrategyRegistry#register(MaskStrategy)}
      *
      * <br>
      * 注意：

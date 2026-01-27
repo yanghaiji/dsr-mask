@@ -1,6 +1,6 @@
 package io.github.logger.mask.ex.logback;
 
-import io.github.logger.mask.core.strategy.MaskStrategy;
+import io.github.dsr.mask.core.strategy.MaskStrategy;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

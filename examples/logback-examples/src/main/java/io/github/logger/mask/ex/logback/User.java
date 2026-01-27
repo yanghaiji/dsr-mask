@@ -1,7 +1,7 @@
 package io.github.logger.mask.ex.logback;
 
-import io.github.logger.mask.core.annotation.Mask;
-import io.github.logger.mask.core.constants.MaskConstants;
+import io.github.dsr.mask.core.annotation.Mask;
+import io.github.dsr.mask.core.constants.MaskConstants;
 
 import java.util.List;
 

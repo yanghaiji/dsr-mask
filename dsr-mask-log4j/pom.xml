@@ -3,17 +3,23 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.github.dsr</groupId>
-        <artifactId>examples</artifactId>
+        <artifactId>dsr-mask</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>logback-examples</artifactId>
-    <name> logback-examples</name>
+    <artifactId>dsr-mask-log4j</artifactId>
+    <name>dsr-mark-log4j</name>
 
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j-core.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>io.github.dsr</groupId>
-            <artifactId>dsr-mask-logback</artifactId>
+            <artifactId>dsr-mask-core</artifactId>
         </dependency>
     </dependencies>
 </project>
