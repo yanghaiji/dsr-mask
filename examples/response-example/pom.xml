@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>io.github.dsr</groupId>
-            <artifactId>dsr-mark-response</artifactId>
+            <artifactId>dsr-mask-response</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

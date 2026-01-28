@@ -11,7 +11,7 @@
         <module>dsr-mask-logback</module>
         <module>dsr-mask-log4j</module>
         <module>examples</module>
-        <module>dsr-mark-response</module>
+        <module>dsr-mask-response</module>
     </modules>
 
     <properties>
