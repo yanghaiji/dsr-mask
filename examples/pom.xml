@@ -12,5 +12,6 @@
     <modules>
         <module>logback-examples</module>
         <module>log4j-examples</module>
+        <module>response-example</module>
     </modules>
 </project>

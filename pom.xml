@@ -11,6 +11,7 @@
         <module>dsr-mask-logback</module>
         <module>dsr-mask-log4j</module>
         <module>examples</module>
+        <module>dsr-mark-response</module>
     </modules>
 
     <properties>
@@ -21,6 +22,7 @@
         <log4j-core.version>2.25.3</log4j-core.version>
         <logback-classic.version>1.5.22</logback-classic.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
+        <spring-boot.version>3.5.9</spring-boot.version>
     </properties>
 
 
@@ -39,6 +41,11 @@
             <dependency>
                 <groupId>io.github.dsr</groupId>
                 <artifactId>dsr-mask-log4j</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.dsr</groupId>
+                <artifactId>dsr-mask-response</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
