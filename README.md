@@ -16,11 +16,26 @@ DSR Mask 是一个用于保护敏感信息的 Java 全局返回值字段与日�
 
 在 [pom.xml]() 中添加相应的依赖：
 
+在你的 pom.xml 文件中添加如下仓库信息：
+```xml
+<repositories>
+        <repository>
+            <id>github</id>
+            <url>https://raw.githubusercontent.com//yanghaiji/dsr-mask/main/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+```
+
 #### Logback 用户
 ```xml
 <dependency>
     <groupId>io.github.dsr</groupId>
     <artifactId>dsr-mask-logback</artifactId>
+    <version>1.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -30,6 +45,7 @@ DSR Mask 是一个用于保护敏感信息的 Java 全局返回值字段与日�
 <dependency>
     <groupId>io.github.dsr</groupId>
     <artifactId>dsr-mask-log4j</artifactId>
+    <version>1.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -38,6 +54,7 @@ DSR Mask 是一个用于保护敏感信息的 Java 全局返回值字段与日�
 <dependency>
     <groupId>io.github.dsr</groupId>
     <artifactId>dsr-mask-response</artifactId>
+    <version>1.0-SNAPSHOT</version>
 </dependency>
 ```
 
