@@ -37,7 +37,7 @@ DSR Mask 是一个用于保护敏感信息的 Java 全局返回值字段与日�
 ```xml
 <dependency>
     <groupId>io.github.dsr</groupId>
-    <artifactId>dsr-mark-response</artifactId>
+    <artifactId>dsr-mask-response</artifactId>
 </dependency>
 ```
 
