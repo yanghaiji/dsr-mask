@@ -1,19 +1,21 @@
-package io.github.logger.mask.ex.logback;
+package io.github.dsr.response.example;
 
 import io.github.dsr.mask.core.annotation.Mask;
 import io.github.dsr.mask.core.constants.MaskConstants;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@NoArgsConstructor
+@Data
 public class User {
 
-    @Mask(type = CustomMaskConstants.NAME)
     private String name;
 
     @Mask(type = MaskConstants.PHONE)
     private String phone;
 
-    @Mask(type = CustomMaskConstants.SECRET)
     private String secret;
 
     @Mask(type = MaskConstants.EMAIL)
@@ -37,11 +39,6 @@ public class User {
         this.idCar = idCar;
     }
 
-
-
-    public void setList(List<User> list) {
-        this.list = list;
-    }
 
 
     @Override
