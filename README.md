@@ -79,6 +79,44 @@ public class ResponseController {
     }
 }
 ```
+效果如下：
+
+```json
+{
+    "key1": "value1",
+    "key2": {
+        "name": "王二麻",
+        "phone": "138****5678",
+        "secret": "abcdef",
+        "email": "12****@github.com",
+        "list": null,
+        "address": "北京市********尊16层",
+        "idCar": "110190*********908"
+    },
+    "key3": [
+        {
+            "name": "张三",
+            "phone": "138****5678",
+            "secret": "abcdef",
+            "email": "12****@github.com",
+            "list": [
+                {
+                    "name": "王二麻",
+                    "phone": "138****5678",
+                    "secret": "abcdef",
+                    "email": "12****@github.com",
+                    "list": null,
+                    "address": "北京市********尊16层",
+                    "idCar": "110190*********908"
+                }
+                
+            ],
+            "address": "北京市********尊13层",
+            "idCar": "110190*********909"
+        }
+    ]
+}
+```
 
 #### 日志示例代码
 ```java
@@ -130,6 +168,11 @@ public class LogbackDemo {
         log.info("用户信息嵌套: {}", userList);
     }
 }
+```
+效果
+ ```
+io.github.logger.mask.ex.logback.LogbackDemo - 用户信息 嵌套: List12[User{name="张*", phone="138****5678", secret="YWJjZGVm", email="12****@github.com", list=[circular reference: List12@283383329], address="北京市********尊13层", idCar="110190*********909"}, User{name="王**", phone="138****5678", secret="YWJjZGVm", email="12****@github.com", list=null, address="北京市********尊16层", idCar="110190*********908"}]
+
 ```
 
 
