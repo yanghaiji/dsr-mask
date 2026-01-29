@@ -57,8 +57,7 @@ public class ResponseProcess {
         }
 
         // 处理集合类型
-        if (body instanceof Collection<?>) {
-            Collection<?> collection = (Collection<?>) body;
+        if (body instanceof Collection<?> collection) {
             List<Object> result = new ArrayList<>(collection.size());
             for (Object item : collection) {
                 result.add(processResponseBody(item));

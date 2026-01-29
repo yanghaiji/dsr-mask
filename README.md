@@ -35,7 +35,7 @@ DSR Mask 是一个用于保护敏感信息的 Java 全局返回值字段与日�
 <dependency>
     <groupId>io.github.dsr</groupId>
     <artifactId>dsr-mask-logback</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -45,7 +45,7 @@ DSR Mask 是一个用于保护敏感信息的 Java 全局返回值字段与日�
 <dependency>
     <groupId>io.github.dsr</groupId>
     <artifactId>dsr-mask-log4j</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -54,7 +54,7 @@ DSR Mask 是一个用于保护敏感信息的 Java 全局返回值字段与日�
 <dependency>
     <groupId>io.github.dsr</groupId>
     <artifactId>dsr-mask-response</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 

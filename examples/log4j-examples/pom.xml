@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.github.dsr</groupId>
         <artifactId>examples</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <artifactId>log4j-examples</artifactId>
     <name>log4j-examples</name>
