@@ -15,9 +15,5 @@ public @interface MaskResponse {
      * 是否启用掩码处理，默认为true
      */
     boolean enabled() default true;
-    
-    /**
-     * 自定义掩码处理器，如果需要特殊处理逻辑
-     */
-//    Class<? extends MaskProcessor> processor() default DefaultMaskProcessor.class;
+
 }
