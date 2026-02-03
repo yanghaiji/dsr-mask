@@ -1,9 +1,10 @@
 package io.github.dsr.mask.response.advice;
 
-import io.github.dsr.mask.response.ResponseProcess;
 import io.github.dsr.mask.response.annotation.MaskResponse;
+import io.github.dsr.mask.response.process.ResponseProcess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.MediaType;
@@ -14,37 +15,43 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import java.util.Objects;
-
 /**
  * 统一响应掩码处理Advice - 修复嵌套对象掩码问题
+ * <p>
+ * @author haiji
  */
 @ControllerAdvice
 public class MaskResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
+    private static final Logger log = LoggerFactory.getLogger(MaskResponseBodyAdvice.class);
 
-    private final Logger log = LoggerFactory.getLogger(MaskResponseBodyAdvice.class);
+    private final ResponseProcess processor;
 
-    private final ThreadLocal<ResponseProcess> maskProcessLocal = ThreadLocal.withInitial(ResponseProcess::new);
+    @Autowired
+    public MaskResponseBodyAdvice(ResponseProcess processor) {
+        this.processor = processor;
+    }
 
-
+    /**
+     * 响应结果是否需要处理
+     */
     @Override
-    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        // 只处理 JSON 转换器
-        if (!MappingJackson2HttpMessageConverter.class.isAssignableFrom(converterType)) {
+    public boolean supports(MethodParameter returnType,
+                            Class<? extends HttpMessageConverter<?>> converterType) {
+
+        if (!MappingJackson2HttpMessageConverter.class
+                .isAssignableFrom(converterType)) {
             return false;
         }
 
-        // 检查方法上是否有@MaskResponse注解
         MaskResponse maskResponse = AnnotatedElementUtils.findMergedAnnotation(
-                Objects.requireNonNull(returnType.getMethod()), MaskResponse.class
+                returnType.getMethod(), MaskResponse.class
         );
 
         if (maskResponse != null) {
             return maskResponse.enabled();
         }
 
-        // 检查类上是否有@MaskResponse注解
         maskResponse = AnnotatedElementUtils.findMergedAnnotation(
                 returnType.getContainingClass(), MaskResponse.class
         );
@@ -52,44 +59,31 @@ public class MaskResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         return maskResponse != null && maskResponse.enabled();
     }
 
+    /**
+     * 响应结果处理
+     */
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
+    public Object beforeBodyWrite(Object body,
+                                  MethodParameter returnType,
+                                  MediaType selectedContentType,
                                   Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                                  ServerHttpRequest request, ServerHttpResponse response) {
+                                  ServerHttpRequest request,
+                                  ServerHttpResponse response) {
+
         if (body == null) {
             return null;
         }
-
         try {
-            // 关键修复1: 字符串类型特殊处理
-            if (body instanceof String) {
-                return maskProcessLocal.get().processStringBody((String) body);
-            }
-            // 获取方法上的@MaskResponse注解
-            MaskResponse maskResponse = AnnotatedElementUtils.findMergedAnnotation(
-                    returnType.getMethod(), MaskResponse.class
-            );
-
-            if (maskResponse == null) {
-                // 尝试从类上获取
-                maskResponse = AnnotatedElementUtils.findMergedAnnotation(
-                        returnType.getContainingClass(), MaskResponse.class
-                );
+            // String 特殊处理
+            if (body instanceof String str) {
+                return processor.processStringBody(str);
             }
 
-            if (maskResponse == null) {
-                return body;
-            }
-
-            // 深度处理响应体
-            return maskProcessLocal.get().processResponseBody(body);
+            return processor.processResponseBody(body);
 
         } catch (Exception e) {
-            log.error("process mask error: {}", e.getMessage(), e);
+            log.error("response mask process error", e);
             return body;
-        }finally {
-            maskProcessLocal.remove();
         }
     }
-
 }
