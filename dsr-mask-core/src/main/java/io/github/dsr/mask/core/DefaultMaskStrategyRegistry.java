@@ -1,6 +1,7 @@
 package io.github.dsr.mask.core;
 
 import io.github.dsr.mask.core.strategy.*;
+import io.github.dsr.mask.core.strategy.builtin.*;
 
 import java.util.HashMap;
 import java.util.Map;

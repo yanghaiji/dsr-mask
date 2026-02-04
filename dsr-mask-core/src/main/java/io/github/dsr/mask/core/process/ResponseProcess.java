@@ -1,4 +1,4 @@
-package io.github.dsr.mask.response.process;
+package io.github.dsr.mask.core.process;
 
 /**
  * 响应处理接口
