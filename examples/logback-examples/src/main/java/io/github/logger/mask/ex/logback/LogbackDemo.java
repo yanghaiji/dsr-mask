@@ -1,7 +1,7 @@
 package io.github.logger.mask.ex.logback;
 
 import io.github.dsr.mask.core.annotation.Mask;
-import io.github.dsr.mask.core.DefaultMaskStrategyRegistry;
+import io.github.dsr.mask.core.DsrMaskStrategyRegistry;
 import io.github.dsr.mask.core.constants.MaskConstants;
 import io.github.dsr.mask.core.strategy.MaskStrategy;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ public class LogbackDemo {
      * step 2: 继承或者实现 {@link MaskConstants} 实现自定义掩码的类型，用{@link Mask}
      * 注解，同时作用与  {@link MaskStrategy#type()}的返回值
      * <br>
-     * step 3: 将实现好的掩码实现方式 注册到 {@link DefaultMaskStrategyRegistry#register(MaskStrategy)}
+     * step 3: 将实现好的掩码实现方式 注册到 {@link DsrMaskStrategyRegistry#register(MaskStrategy)}
      *
      * <br>
      * 注意：
@@ -31,7 +31,7 @@ public class LogbackDemo {
      */
     public static void main(String[] args) {
 
-        DefaultMaskStrategyRegistry.register(new SecretMaskStrategy());
+        DsrMaskStrategyRegistry.register(new SecretMaskStrategy());
 
         User user = new User("张三", "13812345678", "abcdef", "1213133131@github.com","北京市朝阳区CBD中国尊13层","110190199909090909");
         User user2 = new User("王二麻", "13812345678", "abcdef", "1213133131@github.com","北京市朝阳区CBD中国尊16层","110190199909090908");

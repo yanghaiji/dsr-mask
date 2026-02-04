@@ -1,8 +1,9 @@
 package io.github.dsr.mask.response.process;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.dsr.mask.core.DefaultMaskStrategyRegistry;
+import io.github.dsr.mask.core.DsrMaskStrategyRegistry;
 import io.github.dsr.mask.core.annotation.Mask;
+import io.github.dsr.mask.core.process.ResponseProcess;
 import io.github.dsr.mask.core.strategy.MaskStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -147,7 +148,7 @@ public class DefaultResponseProcess implements ResponseProcess {
                 // 再处理脱敏字段
                 if (mask != null && value instanceof String str) {
                     MaskStrategy strategy =
-                            DefaultMaskStrategyRegistry.get(mask.type());
+                            DsrMaskStrategyRegistry.get(mask.type());
                     if (strategy != null) {
                         field.set(obj, strategy.mask(str, mask.args()));
                     }

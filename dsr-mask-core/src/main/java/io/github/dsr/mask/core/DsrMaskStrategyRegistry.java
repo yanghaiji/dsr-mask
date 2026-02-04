@@ -10,7 +10,7 @@ import java.util.Map;
  * 默认的脱敏策略注册中心
  * @author haiji
  */
-public class DefaultMaskStrategyRegistry /*implements MaskStrategyRegistry */{
+public class DsrMaskStrategyRegistry /*implements MaskStrategyRegistry */{
 
     private static final Map<String, MaskStrategy> STRATEGY_MAP = new HashMap<>();
 
@@ -20,6 +20,7 @@ public class DefaultMaskStrategyRegistry /*implements MaskStrategyRegistry */{
         register(new IdcarMaskStrategy());
         register(new AddressMaskStrategy());
         register(new NameMaskStrategy());
+        register(new BankCardMaskStrategy());
     }
 
     /**

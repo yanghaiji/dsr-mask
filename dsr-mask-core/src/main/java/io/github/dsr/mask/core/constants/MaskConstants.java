@@ -42,4 +42,9 @@ public interface MaskConstants {
      */
     String ADDRESS = "ADDRESS";
 
+    /**
+     * 银行卡
+     */
+    String BANK = "BANK";
+
 }
