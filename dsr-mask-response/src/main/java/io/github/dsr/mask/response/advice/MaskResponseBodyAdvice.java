@@ -1,7 +1,7 @@
 package io.github.dsr.mask.response.advice;
 
+import io.github.dsr.mask.core.process.ResponseProcess;
 import io.github.dsr.mask.response.annotation.MaskResponse;
-import io.github.dsr.mask.response.process.ResponseProcess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

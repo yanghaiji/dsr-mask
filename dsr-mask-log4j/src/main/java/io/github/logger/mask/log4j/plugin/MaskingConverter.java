@@ -1,6 +1,6 @@
 package io.github.logger.mask.log4j.plugin;
 
-import io.github.dsr.mask.core.ObjectMasker;
+import io.github.dsr.mask.core.util.ObjectMasker;
 import io.github.logger.mask.log4j.Log4jFormatMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

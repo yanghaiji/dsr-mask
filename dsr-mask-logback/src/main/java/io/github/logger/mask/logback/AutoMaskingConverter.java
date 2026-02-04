@@ -2,7 +2,7 @@ package io.github.logger.mask.logback;
 
 import ch.qos.logback.classic.pattern.ClassicConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
-import io.github.dsr.mask.core.ObjectMasker;
+import io.github.dsr.mask.core.util.ObjectMasker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

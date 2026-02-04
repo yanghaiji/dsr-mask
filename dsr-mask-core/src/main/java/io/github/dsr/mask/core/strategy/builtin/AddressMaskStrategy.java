@@ -1,6 +1,7 @@
-package io.github.dsr.mask.core.strategy;
+package io.github.dsr.mask.core.strategy.builtin;
 
 import io.github.dsr.mask.core.constants.MaskConstants;
+import io.github.dsr.mask.core.strategy.MaskStrategy;
 import org.apache.commons.lang3.StringUtils;
 
 /**
