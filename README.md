@@ -149,7 +149,7 @@ public class LogbackDemo {
      * step 2: 继承或者实现 {@link MaskConstants} 实现自定义掩码的类型，
      * 使用 {@link Mask} 注解，同时作用于 {@link MaskStrategy#type()} 的返回值
      * <br>
-     * step 3: 将实现好的掩码实现方式注册到 {@link DefaultMaskStrategyRegistry#register(MaskStrategy)}
+     * step 3: 将实现好的掩码实现方式注册到 {@link DsrMaskStrategyRegistry#register(MaskStrategy)}
      *
      * <br>
      * 注意：
@@ -159,7 +159,7 @@ public class LogbackDemo {
     public static void main(String[] args) {
 
         // 注册自定义脱敏策略
-        DefaultMaskStrategyRegistry.register(new SecretMaskStrategy());
+        DsrMaskStrategyRegistry.register(new SecretMaskStrategy());
 
         // 创建测试数据
         User user = new User("张三", "13812345678", "abcdef", 
