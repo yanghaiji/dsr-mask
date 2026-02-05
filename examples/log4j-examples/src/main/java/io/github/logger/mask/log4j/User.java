@@ -10,12 +10,12 @@ public class User {
 
     private String name;
 
-    @Mask(type = MaskConstants.PHONE)
+    @Mask(strategy = MaskConstants.PHONE)
     private String phone;
 
     private String secret;
 
-    @Mask(type = MaskConstants.EMAIL)
+    @Mask(strategy = MaskConstants.EMAIL)
     private String email;
 
     private List<User> list;

@@ -12,7 +12,7 @@ public class AddressMaskStrategy implements MaskStrategy {
 
 
     @Override
-    public String type() {
+    public String strategy() {
         return MaskConstants.ADDRESS;
     }
 

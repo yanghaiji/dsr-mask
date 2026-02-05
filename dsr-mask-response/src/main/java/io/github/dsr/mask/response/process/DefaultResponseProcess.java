@@ -148,7 +148,7 @@ public class DefaultResponseProcess implements ResponseProcess {
                 // 再处理脱敏字段
                 if (mask != null && value instanceof String str) {
                     MaskStrategy strategy =
-                            MaskStrategies.getRegistry().get(mask.type());
+                            MaskStrategies.getRegistry().get(mask.strategy());
                     if (strategy != null) {
                         field.set(obj, strategy.mask(str, mask.args()));
                     }

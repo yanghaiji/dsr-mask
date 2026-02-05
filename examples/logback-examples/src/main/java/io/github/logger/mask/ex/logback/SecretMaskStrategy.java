@@ -13,7 +13,7 @@ public class SecretMaskStrategy implements MaskStrategy {
      * 类型名，如 phone / idCard
      */
     @Override
-    public String type() {
+    public String strategy() {
         return CustomMaskConstants.SECRET;
     }
 

@@ -7,24 +7,24 @@ import java.util.List;
 
 public class User {
 
-    @Mask(type = CustomMaskConstants.NAME)
+    @Mask(strategy = CustomMaskConstants.NAME)
     private String name;
 
-    @Mask(type = MaskConstants.PHONE)
+    @Mask(strategy = MaskConstants.PHONE)
     private String phone;
 
-    @Mask(type = CustomMaskConstants.SECRET)
+    @Mask(strategy = CustomMaskConstants.SECRET)
     private String secret;
 
-    @Mask(type = MaskConstants.EMAIL)
+    @Mask(strategy = MaskConstants.EMAIL)
     private String email;
 
     private List<User> list;
 
-    @Mask(type = MaskConstants.ADDRESS)
+    @Mask(strategy = MaskConstants.ADDRESS)
     private String address;
 
-    @Mask(type = MaskConstants.ID_CAR)
+    @Mask(strategy = MaskConstants.ID_CAR)
     private String idCar;
 
 

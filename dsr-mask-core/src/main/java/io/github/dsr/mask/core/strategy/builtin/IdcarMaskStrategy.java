@@ -11,7 +11,7 @@ public class IdcarMaskStrategy implements MaskStrategy {
 
 
     @Override
-    public String type() {
+    public String strategy() {
         return MaskConstants.ID_CAR;
     }
 

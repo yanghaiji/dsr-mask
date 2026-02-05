@@ -10,7 +10,7 @@ public interface MaskStrategy {
      * 类型名，如 phone / idCard
      * @return 类型名
      */
-    String type();
+    String strategy();
 
     /**
      * 执行脱敏

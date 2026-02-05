@@ -12,7 +12,7 @@ public class NameMaskStrategy implements MaskStrategy {
 
 
     @Override
-    public String type() {
+    public String strategy() {
         return MaskConstants.NAME;
     }
 

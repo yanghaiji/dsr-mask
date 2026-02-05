@@ -14,7 +14,7 @@ public class PhoneMaskStrategy implements MaskStrategy {
     private static final Pattern PATTERN =  Pattern.compile("(\\b1\\d{2})\\d{4}(\\d{4}\\b)");
 
     @Override
-    public String type() {
+    public String strategy() {
         return MaskConstants.PHONE;
     }
 

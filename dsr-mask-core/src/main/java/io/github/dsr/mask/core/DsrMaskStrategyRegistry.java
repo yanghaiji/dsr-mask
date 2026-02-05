@@ -29,7 +29,7 @@ public class DsrMaskStrategyRegistry implements MaskStrategyRegistry {
      * @param strategy 策略
      */
     public void register(MaskStrategy strategy) {
-        STRATEGY_MAP.put(strategy.type(), strategy);
+        STRATEGY_MAP.put(strategy.strategy(), strategy);
     }
 
     /**
