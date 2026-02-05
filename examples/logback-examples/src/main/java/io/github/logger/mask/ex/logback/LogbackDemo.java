@@ -1,5 +1,6 @@
 package io.github.logger.mask.ex.logback;
 
+import io.github.dsr.mask.core.util.MaskStrategies;
 import io.github.dsr.mask.core.annotation.Mask;
 import io.github.dsr.mask.core.DsrMaskStrategyRegistry;
 import io.github.dsr.mask.core.constants.MaskConstants;
@@ -31,7 +32,7 @@ public class LogbackDemo {
      */
     public static void main(String[] args) {
 
-        DsrMaskStrategyRegistry.register(new SecretMaskStrategy());
+        MaskStrategies.getRegistry().register(new SecretMaskStrategy());
 
         User user = new User("张三", "13812345678", "abcdef", "1213133131@github.com","北京市朝阳区CBD中国尊13层","110190199909090909");
         User user2 = new User("王二麻", "13812345678", "abcdef", "1213133131@github.com","北京市朝阳区CBD中国尊16层","110190199909090908");
