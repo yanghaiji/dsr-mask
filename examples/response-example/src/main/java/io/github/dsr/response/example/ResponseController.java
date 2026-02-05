@@ -1,6 +1,6 @@
 package io.github.dsr.response.example;
 
-import io.github.dsr.mask.response.annotation.MaskResponse;
+import io.github.dsr.mask.core.annotation.MaskResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
