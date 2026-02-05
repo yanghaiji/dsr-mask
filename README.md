@@ -159,7 +159,7 @@ public class LogbackDemo {
     public static void main(String[] args) {
 
         // 注册自定义脱敏策略
-        DsrMaskStrategyRegistry.register(new SecretMaskStrategy());
+        MaskStrategies.getRegistry().register(new SecretMaskStrategy());
 
         // 创建测试数据
         User user = new User("张三", "13812345678", "abcdef", 
@@ -292,8 +292,53 @@ public class CustomMaskStrategy implements MaskStrategy {
 
 
 2. **注册策略**
+
+- 方式1：使用 DSR Mask 默认注册方式
 ```java
-DefaultMaskStrategyRegistry.register(new CustomMaskStrategy());
+MaskStrategies.getRegistry().register(new SecretMaskStrategy());
+```
+
+- 方式2：使用自定义注册方式
+
+参考 [SpringAdapterMaskStrategyRegistry](examples/response-example/src/main/java/io/github/dsr/response/example/SpringAdapterMaskStrategyRegistry.java)
+
+当你创建自定义实现的 MaskStrategyRegistry 时，请确保实现类在 Spring 容器中注册。将覆盖默认注册方式
+```java
+@Component
+public class SpringAdapterMaskStrategyRegistry implements MaskStrategyRegistry {
+
+    private final Map<String, MaskStrategy> strategies = new ConcurrentHashMap<>();
+
+    public SpringAdapterMaskStrategyRegistry() {
+        // 1. 首先添加所有默认策略
+        initializeDefaultStrategies();
+    }
+
+    private void initializeDefaultStrategies() {
+        // 注册默认策略
+        register(new PhoneMaskStrategy());
+        register(new EmailMaskStrategy());
+        register(new IdcarMaskStrategy());
+        register(new NameMaskStrategy());
+        // 可以根据需要添加更多默认策略
+    }
+
+    @Override
+    public void register(MaskStrategy strategy) {
+        if (strategy == null) {
+            throw new IllegalArgumentException("Strategy cannot be null");
+        }
+
+        strategies.put(strategy.type(), strategy);
+    }
+
+    @Override
+    public MaskStrategy get(String type) {
+        return strategies.get(type);
+
+    }
+
+}
 ```
 
 

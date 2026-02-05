@@ -1,4 +1,4 @@
-package io.github.dsr.mask.response.annotation;
+package io.github.dsr.mask.core.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
