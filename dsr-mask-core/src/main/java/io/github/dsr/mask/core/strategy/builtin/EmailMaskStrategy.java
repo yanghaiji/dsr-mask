@@ -14,7 +14,7 @@ public class EmailMaskStrategy implements MaskStrategy {
             Pattern.compile("(\\w{2})\\w+(@\\w+)");
 
     @Override
-    public String type() {
+    public String strategy() {
         return MaskConstants.EMAIL;
     }
 

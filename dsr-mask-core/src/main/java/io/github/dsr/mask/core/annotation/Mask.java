@@ -14,12 +14,14 @@ import java.lang.annotation.Target;
 public @interface Mask {
 
     /**
-     * 脱敏类型（与策略绑定）
+     * 脱敏策略类型（与策略绑定）
+     * {@link io.github.dsr.mask.core.strategy.MaskStrategy}
      */
-    String type();
+    String strategy();
 
     /**
      * 可选参数
      */
     String[] args() default {};
+
 }

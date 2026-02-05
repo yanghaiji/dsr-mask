@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 public class BankCardMaskStrategy implements MaskStrategy {
 
     @Override
-    public String type() {
+    public String strategy() {
         return MaskConstants.BANK;
     }
 

@@ -225,7 +225,7 @@ public class ObjectMasker {
 
                 Mask mask = field.getAnnotation(Mask.class);
                 if (mask != null && value instanceof String) {
-                    MaskStrategy strategy = MaskStrategies.getRegistry().get(mask.type());
+                    MaskStrategy strategy = MaskStrategies.getRegistry().get(mask.strategy());
                     if (strategy != null) {
                         String masked = strategy.mask((String) value, mask.args());
                         sb.append("\"").append(escapeString(masked)).append("\"");

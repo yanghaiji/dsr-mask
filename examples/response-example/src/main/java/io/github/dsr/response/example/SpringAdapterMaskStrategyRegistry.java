@@ -40,7 +40,7 @@ public class SpringAdapterMaskStrategyRegistry implements MaskStrategyRegistry {
             throw new IllegalArgumentException("Strategy cannot be null");
         }
 
-        strategies.put(strategy.type(), strategy);
+        strategies.put(strategy.strategy(), strategy);
     }
 
     @Override

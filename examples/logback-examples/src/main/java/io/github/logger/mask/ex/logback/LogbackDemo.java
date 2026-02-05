@@ -21,7 +21,7 @@ public class LogbackDemo {
      * step 1: 实现 {@link MaskStrategy} 接口 。（必选项）
      * <br>
      * step 2: 继承或者实现 {@link MaskConstants} 实现自定义掩码的类型，用{@link Mask}
-     * 注解，同时作用与  {@link MaskStrategy#type()}的返回值
+     * 注解，同时作用与  {@link MaskStrategy#strategy()}的返回值
      * <br>
      * step 3: 将实现好的掩码实现方式 注册到 {@link DsrMaskStrategyRegistry#register(MaskStrategy)}
      *
