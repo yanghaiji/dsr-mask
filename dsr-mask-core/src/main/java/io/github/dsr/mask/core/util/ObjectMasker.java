@@ -1,6 +1,5 @@
 package io.github.dsr.mask.core.util;
 
-import io.github.dsr.mask.core.DsrMaskStrategyRegistry;
 import io.github.dsr.mask.core.annotation.Mask;
 import io.github.dsr.mask.core.strategy.MaskStrategy;
 
@@ -226,7 +225,7 @@ public class ObjectMasker {
 
                 Mask mask = field.getAnnotation(Mask.class);
                 if (mask != null && value instanceof String) {
-                    MaskStrategy strategy = DsrMaskStrategyRegistry.get(mask.type());
+                    MaskStrategy strategy = MaskStrategies.getRegistry().get(mask.type());
                     if (strategy != null) {
                         String masked = strategy.mask((String) value, mask.args());
                         sb.append("\"").append(escapeString(masked)).append("\"");
