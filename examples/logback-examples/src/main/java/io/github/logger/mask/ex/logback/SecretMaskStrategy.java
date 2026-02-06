@@ -8,7 +8,7 @@ import java.util.Base64;
 /**
  * @author haiji
  */
-public class SecretMaskStrategy implements MaskStrategy {
+public class SecretMaskStrategy implements MaskStrategy<String, String, String> {
     /**
      * 类型名，如 phone / idCard
      */

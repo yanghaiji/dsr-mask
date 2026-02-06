@@ -10,7 +10,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-
 public class ObjectMasker {
 
     /**
@@ -48,6 +47,7 @@ public class ObjectMasker {
 
     /**
      * 内部方法，用于递归处理对象
+     *
      * @param obj 要处理的对象
      * @return
      */
@@ -97,6 +97,7 @@ public class ObjectMasker {
 
     /**
      * 判断对象是否为基本类型或包装类
+     *
      * @param obj
      * @return
      */
@@ -224,10 +225,10 @@ public class ObjectMasker {
                 sb.append(field.getName()).append("=");
 
                 Mask mask = field.getAnnotation(Mask.class);
-                if (mask != null && value instanceof String) {
-                    MaskStrategy strategy = MaskStrategies.getRegistry().get(mask.strategy());
+                if (mask != null) {
+                    MaskStrategy<Object, String, String> strategy = MaskStrategies.getRegistry().get(mask.strategy());
                     if (strategy != null) {
-                        String masked = strategy.mask((String) value, mask.args());
+                        String masked = strategy.mask(value, mask.args());
                         sb.append("\"").append(escapeString(masked)).append("\"");
                     } else {
                         sb.append(maskObjectInternal(value));
