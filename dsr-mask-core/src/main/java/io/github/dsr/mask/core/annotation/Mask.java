@@ -16,6 +16,8 @@ public @interface Mask {
     /**
      * 脱敏策略类型（与策略绑定）
      * {@link io.github.dsr.mask.core.strategy.MaskStrategy}
+     * <p>
+     * 可以实现{@link io.github.dsr.mask.core.constants.MaskConstants} 以方便实现默认的策略和修改
      */
     String strategy();
 

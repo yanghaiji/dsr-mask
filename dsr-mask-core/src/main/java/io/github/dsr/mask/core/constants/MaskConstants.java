@@ -47,4 +47,8 @@ public interface MaskConstants {
      */
     String BANK = "BANK";
 
+    /**
+     * 金额
+     */
+    String AMOUNT = "AMOUNT";
 }

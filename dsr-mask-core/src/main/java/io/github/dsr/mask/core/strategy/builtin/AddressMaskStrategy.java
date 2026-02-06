@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * @author haiji
  */
-public class AddressMaskStrategy implements MaskStrategy {
+public class AddressMaskStrategy implements MaskStrategy<String, String, String> {
 
 
 

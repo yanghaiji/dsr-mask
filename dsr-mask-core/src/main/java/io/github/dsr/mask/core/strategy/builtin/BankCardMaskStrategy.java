@@ -4,7 +4,7 @@ import io.github.dsr.mask.core.constants.MaskConstants;
 import io.github.dsr.mask.core.strategy.MaskStrategy;
 import org.apache.commons.lang3.StringUtils;
 
-public class BankCardMaskStrategy implements MaskStrategy {
+public class BankCardMaskStrategy implements MaskStrategy<String, String, String> {
 
     @Override
     public String strategy() {

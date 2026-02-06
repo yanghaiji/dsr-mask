@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * @author haiji
  */
-public class IdcarMaskStrategy implements MaskStrategy {
+public class IdcarMaskStrategy implements MaskStrategy<String, String, String>{
 
 
     @Override

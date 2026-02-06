@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 /**
  * @author haiji
  */
-public class EmailMaskStrategy implements MaskStrategy {
+public class EmailMaskStrategy implements MaskStrategy<String, String, String>{
 
     private static final Pattern PATTERN =
             Pattern.compile("(\\w{2})\\w+(@\\w+)");

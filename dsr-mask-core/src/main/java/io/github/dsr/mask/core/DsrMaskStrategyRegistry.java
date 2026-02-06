@@ -22,6 +22,7 @@ public class DsrMaskStrategyRegistry implements MaskStrategyRegistry {
        register(new AddressMaskStrategy());
        register(new NameMaskStrategy());
        register(new BankCardMaskStrategy());
+       register(new AmountMaskStrategy());
    }
 
     /**
@@ -29,7 +30,7 @@ public class DsrMaskStrategyRegistry implements MaskStrategyRegistry {
      * @param strategy 策略
      */
     public void register(MaskStrategy strategy) {
-        STRATEGY_MAP.put(strategy.strategy(), strategy);
+        STRATEGY_MAP.put(String.valueOf(strategy.strategy()), strategy);
     }
 
     /**
